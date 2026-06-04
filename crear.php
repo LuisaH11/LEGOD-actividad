@@ -1,5 +1,16 @@
 <?php
+    include './config.php';
 
+    $sql = "SELECT theme_id, name FROM themes";
+    $query = mysqli_query($conexion, $sql);
+    $lista_temas = array();
+
+    if($query) {
+        while($fila = mysqli_fetch_assoc($query)) {
+            $lista_temas[] = $fila;
+            // var_dump($fila);
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +55,12 @@
                     
                     <!-- PHP FOREACH --> 
                     <?php
-                    
+                        if(count($lista_temas) > 0){
+                            foreach($lista_temas as $tema) {
+                                // $id_tema = $tema["theme_id"];
+                                echo "<option value = '$id_tema'> ". $tema["name"] . "</option>";
+                            }
+                        }
                     ?>
                 </select>
                 
